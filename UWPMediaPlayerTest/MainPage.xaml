@@ -1,0 +1,61 @@
+﻿<Page
+    x:Class="UWPMediaPlayerTest.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:UWPMediaPlayerTest"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <Style x:Key="ContentPresenterStyle1" TargetType="ContentPresenter">
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+        </Style>
+        <Style x:Key="MediaPlayerElementStyle1" TargetType="MediaPlayerElement">
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="IsTabStop" Value="False"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="MediaPlayerElement">
+                        <Grid x:Name="LayoutRoot">
+                            <Border Background="Transparent"/>
+                            <Image x:Name="PosterImage" Stretch="{TemplateBinding Stretch}" Source="{TemplateBinding PosterSource}" Visibility="Collapsed"/>
+                            <MediaPlayerPresenter x:Name="MediaPlayerPresenter" IsFullWindow="{TemplateBinding IsFullWindow}" MediaPlayer="{TemplateBinding MediaPlayer}" Stretch="{TemplateBinding Stretch}"/>
+                            <ContentPresenter Style="{StaticResource ContentPresenterStyle1}" x:Name="TransportControlsPresenter" Visibility="{TemplateBinding AreTransportControlsEnabled}"/>
+                            <Grid x:Name="TimedTextSourcePresenter"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="12">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <Button Content="Load" Click="Load_Click" Width="120" Margin="0,0,20,0" />
+                <Button Content="Play" Click="Play_Click" Width="120" Margin="0,0,20,0" />
+                <Button Content="Pause" Click="Pause_Click" Width="120" Margin="0,0,20,0" />
+                <Button Content="FOLDER" Click="Folder_Click" Width="120" Margin="0,0,20,0" />
+                <Button Content="Projection" Click="Projection_Click" Width="120" Margin="0,0,20,0" />
+            </StackPanel>
+        </Grid>
+
+        <MediaPlayerElement x:Name="LeftMedia" AutoPlay="False" Grid.Row="1" Grid.Column="0" AreTransportControlsEnabled="True" >
+            <MediaPlayerElement.TransportControls>
+                <MediaTransportControls IsCompact="False"
+                                        IsFastForwardButtonVisible="False"
+                                        IsFastRewindButtonVisible="False"
+                                        IsFocusEngagementEnabled="False"
+                                        IsFullWindowButtonVisible="False" />
+            </MediaPlayerElement.TransportControls>
+        </MediaPlayerElement>
+    </Grid>
+</Page>
